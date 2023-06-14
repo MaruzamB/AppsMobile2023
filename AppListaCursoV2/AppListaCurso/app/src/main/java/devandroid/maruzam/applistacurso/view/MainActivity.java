@@ -12,21 +12,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 import devandroid.maruzam.applistacurso.R;
+import devandroid.maruzam.applistacurso.controller.CursoController;
 import devandroid.maruzam.applistacurso.controller.PessoaController;
+import devandroid.maruzam.applistacurso.model.Curso;
 import devandroid.maruzam.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
-/* RETIRAR
-
-    SharedPreferences preferences;
-    SharedPreferences.Editor listaVip;
-    public static final String NOME_PREFERENCES = "pref_listavip";
-*/
 
     PessoaController controller;
+    CursoController cursoController;
     Pessoa pessoa;
     Pessoa outraPessoa;
+    List<Curso> listaDeCurso;
 
     EditText editPrimeiroNome;
     EditText editSobreNome;
@@ -42,22 +42,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
 
-/*      RETIRAR
-        preferences = getSharedPreferences(NOME_PREFERENCES, 0);
-        listaVip = preferences.edit();
-       */
-
         controller = new PessoaController(MainActivity.this);//7
         controller.toString();
 
+        cursoController = new CursoController();
+
+        listaDeCurso = cursoController.getListaDeCursos();
+
         outraPessoa = new Pessoa();
         controller.buscar(outraPessoa);
-      /*COMENTAR
-        outraPessoa.setPromeiroNome(preferences.getString("primeiroNome", ""));
-        outraPessoa.setSobreNome(preferences.getString("sobreNome", ""));
-        outraPessoa.setCursoDesejado(preferences.getString("nomeCurso", ""));
-        outraPessoa.setTelefoneContato(preferences.getString("telefoneContato", ""));
-      */
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobreNome = findViewById(R.id.editSobrenome);
@@ -82,12 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 editTelefoneContato.setText("");
 
                 controller.limpar();
-
-             /*
-                COMENTAR
-                listaVip.clear();
-                listaVip.apply();
-               */
 
             }
         });

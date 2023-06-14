@@ -10,19 +10,16 @@ import devandroid.maruzam.applistacurso.view.MainActivity;
 
 public class PessoaController {
 
-    SharedPreferences preferences;//4
-    SharedPreferences.Editor listaVip;//9
-    public static final String NOME_PREFERENCES = "pref_listavip";//5
+    SharedPreferences preferences;
+    SharedPreferences.Editor listaVip;
+    public static final String NOME_PREFERENCES = "pref_listavip";
 
     public PessoaController(MainActivity mainActivity) {
 
-        preferences = mainActivity.getSharedPreferences(NOME_PREFERENCES, 0);//6,8
-        listaVip = preferences.edit();//11
+        preferences = mainActivity.getSharedPreferences(NOME_PREFERENCES, 0);
+        listaVip = preferences.edit();
 
-
-    }//6
-
-
+    }
     @NonNull
     @Override
     public String toString() {
@@ -33,7 +30,6 @@ public class PessoaController {
         return super.toString();
 
     }
-
 
     public void salvar(Pessoa outraPessoa) {
         Log.d("MVC_Controller", "Salvo: " + outraPessoa.toString());
@@ -51,16 +47,15 @@ public class PessoaController {
         outraPessoa.setPromeiroNome(preferences.getString("primeiroNome", "NA"));
         outraPessoa.setSobreNome(preferences.getString("sobreNome", "NA"));
         outraPessoa.setCursoDesejado(preferences.getString("nomeCurso", "NA"));
-        outraPessoa.setTelefoneContato(preferences.getString("telefoneContato", "NA"));//13
+        outraPessoa.setTelefoneContato(preferences.getString("telefoneContato", "NA"));
         return outraPessoa;//13
 
-    }  //1
+    }
 
     public void limpar() {
 
         listaVip.clear();
         listaVip.apply();
 
-
-    }//2
+    }
 }
