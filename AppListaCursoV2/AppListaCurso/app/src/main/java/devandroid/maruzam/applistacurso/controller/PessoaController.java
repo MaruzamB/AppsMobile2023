@@ -31,24 +31,24 @@ public class PessoaController {
 
     }
 
-    public void salvar(Pessoa outraPessoa) {
-        Log.d("MVC_Controller", "Salvo: " + outraPessoa.toString());
+    public void salvar(Pessoa pessoa) {
+        Log.d("MVC_Controller", "Salvo: " + pessoa.toString());
 
-        listaVip.putString("primeiroNome", outraPessoa.getPromeiroNome());
-        listaVip.putString("sobreNome", outraPessoa.getSobreNome());
-        listaVip.putString("nomeCurso", outraPessoa.getCursoDesejado());
-        listaVip.putString("telefoneContato", outraPessoa.getTelefoneContato());
+        listaVip.putString("primeiroNome", pessoa.getPrimeiroNome());
+        listaVip.putString("sobreNome", pessoa.getSobreNome());
+        listaVip.putString("nomeCurso", pessoa.getCursoDesejado());
+        listaVip.putString("telefoneContato", pessoa.getTelefoneContato());
         listaVip.apply();//10
 
     }
 
-    public Pessoa buscar(Pessoa outraPessoa) {
+    public Pessoa buscar(Pessoa Pessoa) {
 
-        outraPessoa.setPromeiroNome(preferences.getString("primeiroNome", "NA"));
-        outraPessoa.setSobreNome(preferences.getString("sobreNome", "NA"));
-        outraPessoa.setCursoDesejado(preferences.getString("nomeCurso", "NA"));
-        outraPessoa.setTelefoneContato(preferences.getString("telefoneContato", "NA"));
-        return outraPessoa;//13
+        Pessoa.setPrimeiroNome(preferences.getString("primeiroNome", "NA"));
+        Pessoa.setSobreNome(preferences.getString("sobreNome", "NA"));
+        Pessoa.setCursoDesejado(preferences.getString("nomeCurso", "NA"));
+        Pessoa.setTelefoneContato(preferences.getString("telefoneContato", "NA"));
+        return Pessoa;//13
 
     }
 
