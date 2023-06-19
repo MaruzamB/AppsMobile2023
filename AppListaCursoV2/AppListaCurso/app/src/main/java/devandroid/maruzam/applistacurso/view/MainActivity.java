@@ -68,16 +68,9 @@ public class MainActivity extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnSalvar);
         btnFinalizar = findViewById(R.id.btnFinalizar);
 
-        //Adapter
-        //Layout
-        //Injetar o adapter ao Spinner - A Lista sera gerada
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cursoController.dadosSpinner() );
-
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-
         spinner.setAdapter(adapter);
-
 
         btnLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
