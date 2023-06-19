@@ -1,15 +1,16 @@
 package devandroid.maruzam.applistacurso.view;
 
-import static devandroid.maruzam.applistacurso.R.layout.activity_main;
+import static devandroid.maruzam.applistacurso.R.layout.activity_spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
@@ -17,16 +18,15 @@ import java.util.List;
 import devandroid.maruzam.applistacurso.R;
 import devandroid.maruzam.applistacurso.controller.CursoController;
 import devandroid.maruzam.applistacurso.controller.PessoaController;
-import devandroid.maruzam.applistacurso.model.Curso;
 import devandroid.maruzam.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
     PessoaController controller;
     CursoController cursoController;
-    Pessoa pessoa;
-    Pessoa outraPessoa;
-    List<Curso> listaDeCurso;
+    Pessoa Pessoa;
+    List<String> nomesDosCursos;
+
 
     EditText editPrimeiroNome;
     EditText editSobreNome;
@@ -37,34 +37,47 @@ public class MainActivity extends AppCompatActivity {
     Button btnSalvar;
     Button btnFinalizar;
 
+   Spinner spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(activity_main);
+        setContentView(activity_spinner);
 
-        controller = new PessoaController(MainActivity.this);//7
+        controller = new PessoaController(MainActivity.this);
         controller.toString();
 
         cursoController = new CursoController();
+        nomesDosCursos = cursoController.dadosSpinner();
 
-        listaDeCurso = cursoController.getListaDeCursos();
-
-        outraPessoa = new Pessoa();
-        controller.buscar(outraPessoa);
+        Pessoa = new Pessoa();
+        controller.buscar(Pessoa);
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobreNome = findViewById(R.id.editSobrenome);
         editCursoDesejado = findViewById(R.id.editCursoDesejado);
         editTelefoneContato = findViewById(R.id.editTelefoneContato);
+        spinner = findViewById(R.id.spinner);
 
-        editPrimeiroNome.setText(outraPessoa.getPromeiroNome());
-        editSobreNome.setText(outraPessoa.getSobreNome());
-        editCursoDesejado.setText(outraPessoa.getCursoDesejado());
-        editTelefoneContato.setText(outraPessoa.getTelefoneContato());
+        editPrimeiroNome.setText(Pessoa.getPrimeiroNome());
+        editSobreNome.setText(Pessoa.getSobreNome());
+        editCursoDesejado.setText(Pessoa.getCursoDesejado());
+        editTelefoneContato.setText(Pessoa.getTelefoneContato());
 
         btnLimpar = findViewById(R.id.btnLimpar);
         btnSalvar = findViewById(R.id.btnSalvar);
         btnFinalizar = findViewById(R.id.btnFinalizar);
+
+        //Adapter
+        //Layout
+        //Injetar o adapter ao Spinner - A Lista sera gerada
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cursoController.dadosSpinner() );
+
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+
+        spinner.setAdapter(adapter);
+
 
         btnLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,28 +104,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                outraPessoa.setPromeiroNome(editPrimeiroNome.getText().toString());
-                outraPessoa.setSobreNome(editSobreNome.getText().toString());
-                outraPessoa.setCursoDesejado(editCursoDesejado.getText().toString());
-                outraPessoa.setTelefoneContato(editTelefoneContato.getText().toString());
+                Pessoa.setPrimeiroNome(editPrimeiroNome.getText().toString());
+                Pessoa.setSobreNome(editSobreNome.getText().toString());
+                Pessoa.setCursoDesejado(editCursoDesejado.getText().toString());
+                Pessoa.setTelefoneContato(editTelefoneContato.getText().toString());
 
-                Toast.makeText(MainActivity.this, "Dados Salvos: " + outraPessoa.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Dados Salvos: " + Pessoa.toString(), Toast.LENGTH_LONG).show();
 
-/*
-
-                listaVip.putString("primeiroNome", outraPessoa.getPromeiroNome());
-                listaVip.putString("sobreNome", outraPessoa.getSobreNome());
-                listaVip.putString("nomeCurso", outraPessoa.getCursoDesejado());
-                listaVip.putString("telefoneContato", outraPessoa.getTelefoneContato());
-                listaVip.apply();
-                RETIRAR
-*/
-
-                controller.salvar(outraPessoa);
+                controller.salvar(Pessoa);
             }
         });
 
-        Log.i("POOAndroid", outraPessoa.toString());
+        Log.i("POOAndroid", Pessoa.toString());
 
 
     }

@@ -11,7 +11,7 @@ public class CursoController {
 
     public List getListaDeCursos(){
 
-        listCursos = new ArrayList<Curso>();
+        listCursos = new ArrayList<Curso                                >();
 
         listCursos.add (new Curso("Java"));
         listCursos.add (new Curso("PHP"));
@@ -26,9 +26,18 @@ public class CursoController {
 
    }
 
+   public ArrayList<String> dadosSpinner(){
 
+       ArrayList<String> dados = new ArrayList<>();
 
+       for (int i = 0; i < getListaDeCursos().size() ; i++) {
 
+           Curso objeto = (Curso) getListaDeCursos().get(i);
+           dados.add(objeto.getCursoDesejado());
 
+       }
+       return dados;
+
+   }
 
 }
